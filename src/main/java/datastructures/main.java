@@ -16,8 +16,11 @@ public class main {
         // marks, like curly brackets, square brackets, or angle brackets.
 
         String str = "((()))";
+        String str1 = "([{)]}";
+        String str2 = "[[[[)]";
+
         boolean isBalanced = balancedParentheses(str);
-        System.out.println("Is the string balanced? " + isBalanced);
+        System.out.println("Is the string balanced (Parentheses) ? " + isBalanced);
 
         // * 2. Balanced Brackets
         /*
@@ -34,17 +37,15 @@ public class main {
         the pair should also be closed correctly. Assume you can use any libraries in Java needed.
         */
 
-        String str1 = "([{)]}";
-        String str2 = "[[[[)]";
-        boolean isBalancedBracketsStack = balancedBracketsStack(str2);
-        System.out.println("Is the string balanced? " + isBalancedBracketsStack);
+        boolean isBalancedBracketsStack = balancedBracketsStack(str);
+        System.out.println("Is the string balanced (Stack)? " + isBalancedBracketsStack);
 
         // * 3. Implement the Data Structure
         // For Step 2, you could have used a Stack to implement the solution.
         // How would you implement a stack if you could not use any of the built-in Java libraries?
 
-        boolean isBalancedBracketsCustomStack = balancedBracketsCustomStack(str1);
-        System.out.println("Is the string balanced? " + isBalancedBracketsCustomStack);
+        boolean isBalancedBracketsCustomStack = balancedBracketsCustomStack(str);
+        System.out.println("Is the string balanced (Custom Stack)? " + isBalancedBracketsCustomStack);
 
         // * 4. Reflection
 
@@ -66,8 +67,8 @@ public class main {
         // ! I probably should use HashMap<Character, Character> for balanced balancedBrackets
 
         // ? 4. How would the implementation of the Stack from Step 3 change if you were to implement a queue?
-        boolean isBalancedBracketsCustomQueue = balancedBracketsCustomQueue(str1);
-        System.out.println("Is the string balanced? " + isBalancedBracketsCustomQueue);
+        boolean isBalancedBracketsCustomQueue = balancedBracketsCustomQueue(str);
+        System.out.println("Is the string balanced (Custom Queue)? " + isBalancedBracketsCustomQueue);
     }
 
     public static boolean balancedParentheses(String str) {
@@ -94,10 +95,10 @@ public class main {
                 if (stack.isEmpty()) {
                     return false;
                 }
-                char top = stack.pop();
-                if ((c == ')' && top != '(') || (c == ']' && top != '[') || (c == '}' && top != '{')) {
-                    return false;
-                }
+                char openingBracket = getPairBracket(c);
+                int result = stack.search(openingBracket);
+                return result != -1;
+
             }
         }
         return stack.isEmpty();
